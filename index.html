@@ -34,6 +34,28 @@
             cursor: pointer;
             margin: 10px;
         }
+        /* Estilos para los botones de textura */
+        .texture-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .texture-btn {
+            background: #e0e0e0;
+            color: #333;
+            border: 2px solid #6e48aa;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .texture-btn.active {
+            background: #6e48aa;
+            color: white;
+            border-color: #6e48aa;
+        }
     </style>
 </head>
 <body>
@@ -55,5 +77,39 @@
     >
         <button slot="ar-button">Ver en AR</button>
     </model-viewer>
+
+    <!-- Botones de selección de textura -->
+    <div class="texture-buttons">
+        <button class="texture-btn active" id="btn-azul">Opción A</button>
+        <button class="texture-btn" id="btn-rojo">Opción B</button>
+        <button class="texture-btn" id="btn-verde">Opción C</button>
+    </div>
+
+    <script>
+   document.addEventListener("DOMContentLoaded", function() {
+        const modelViewer = document.getElementById("modelo3D");
+
+        document.getElementById("btn-azul").addEventListener("click", function() {
+            modelViewer.src = "GLB_PlantaSuculentaAzul.glb";
+            this.classList.add("active");
+            document.getElementById("btn-rojo").classList.remove("active");
+            document.getElementById("btn-verde").classList.remove("active");
+        });
+
+        document.getElementById("btn-rojo").addEventListener("click", function() {
+            modelViewer.src = "GLB_PlantaSuculentaRoja.glb";
+            this.classList.add("active");
+            document.getElementById("btn-azul").classList.remove("active");
+            document.getElementById("btn-verde").classList.remove("active");
+        });
+       
+         document.getElementById("btn-verde").addEventListener("click", function() {
+            modelViewer.src = "GLB_PlantaSuculentaVerde.glb";
+            this.classList.add("active");
+            document.getElementById("btn-rojo").classList.remove("active");
+            document.getElementById("btn-azul").classList.remove("active");
+        });
+    });
+    </script>
 </body>
 </html>
