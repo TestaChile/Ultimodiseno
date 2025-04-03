@@ -63,7 +63,7 @@
     <p>Visualiza tu pedido en 3D y en Realidad Aumentada</p>
     
     <model-viewer
-        src="GLB_STAND_QR.glb"
+        src="GLB_Standqr01.glb"
         alt="Stand QR Mediano"
         loading="eager"
         shadow-intensity="1"
@@ -90,21 +90,21 @@
         const modelViewer = document.getElementById("modelo3D");
 
         document.getElementById("btn-azul").addEventListener("click", function() {
-            modelViewer.src = "GLB_PlantaSuculentaAzul.glb";
+            modelViewer.src = "GLB_Standqr01.glb";
             this.classList.add("active");
             document.getElementById("btn-rojo").classList.remove("active");
             document.getElementById("btn-verde").classList.remove("active");
         });
 
         document.getElementById("btn-rojo").addEventListener("click", function() {
-            modelViewer.src = "GLB_PlantaSuculentaRoja.glb";
+            modelViewer.src = "GLB_Standqr02.glb";
             this.classList.add("active");
             document.getElementById("btn-azul").classList.remove("active");
             document.getElementById("btn-verde").classList.remove("active");
         });
        
          document.getElementById("btn-verde").addEventListener("click", function() {
-            modelViewer.src = "GLB_PlantaSuculentaVerde.glb";
+            modelViewer.src = "GLB_Standqr03";
             this.classList.add("active");
             document.getElementById("btn-rojo").classList.remove("active");
             document.getElementById("btn-azul").classList.remove("active");
