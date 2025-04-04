@@ -57,9 +57,31 @@
         color: white; /* Texto blanco */
         border-color: #000; /* Borde negro */
     }
+        .logo-container {
+    position: fixed; /* Fijo al hacer scroll */
+    top: 20px;
+    left: 20px;
+    z-index: 1000; /* Asegura que esté por encima de todo */
+}
+
+.logo-img {
+    width: 120px; /* Ajusta según necesidad */
+    height: auto; /* Mantiene proporción */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)); /* Sombra sutil */
+    transition: transform 0.3s ease; /* Efecto hover opcional */
+}
+
+.logo-img:hover {
+    transform: scale(1.05); /* Pequeño zoom al pasar el mouse */
+}
     </style>
 </head>
 <body>
+     <!-- Contenedor del logo (absoluto) -->
+    <div class="logo-container">
+        <img src="Logo01_Color_MEDRES.png" alt="Logo Testa Chile" class="logo-img">
+    </div>
+    
 <h1>Stand QR Pequeño | TESTA CHILE</h1>
     <p>Visualiza tu pedido en 3D y en Realidad Aumentada</p>
     
