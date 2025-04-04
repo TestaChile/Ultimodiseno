@@ -35,7 +35,7 @@
             cursor: pointer;
             margin: 10px;
         }
-        /* Estilos para los botones de textura */
+     /* ESTILOS PARA LOS BOTONES DE TEXTURAS */
         .texture-buttons {
             display: flex;
             justify-content: center;
@@ -59,15 +59,14 @@
     }
         .logo-container {
     position: fixed; /* Fijo al hacer scroll */
-    top: 20px;
-    left: 20px;
+    top: 15px;
+    left: 15px;
     z-index: 1000; /* Asegura que esté por encima de todo */
 }
 
 .logo-img {
     width: 120px; /* Ajusta según necesidad */
     height: auto; /* Mantiene proporción */
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)); /* Sombra sutil */
     transition: transform 0.3s ease; /* Efecto hover opcional */
 }
 
@@ -127,7 +126,7 @@
         });
        
          document.getElementById("btn-verde").addEventListener("click", function() {
-            modelViewer.src = "FBX_Standqr03.glb";
+            modelViewer.src = "GLB_Standqr03.glb";
             this.classList.add("active");
             document.getElementById("btn-rojo").classList.remove("active");
             document.getElementById("btn-azul").classList.remove("active");
