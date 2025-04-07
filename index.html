@@ -7,32 +7,40 @@
     <!-- Versión fija de model-viewer -->
     <script type="module" src="https://unpkg.com/@google/model-viewer@2.1.1/dist/model-viewer.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Solo carga la fuente Consolas -->
+    <!-- Fuente Consolas -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Consolas&display=swap');
         
         body {
-            font-family: 'Consolas', monospace; /* Cambio principal aquí */
+            font-family: 'Consolas', monospace;
             margin: 0;
             padding: 20px;
             background: #f9f9f9;
+            text-align: center; /* Centrado general */
         }
         
-        /* Todo lo demás permanece IGUAL que en tu versión original */
         h1 { 
             color: #000;
-            margin-bottom: 5px;
+            margin: 0 auto 10px; /* Centrado */
             font-size: 30px;
+            max-width: 800px;
         }
+        
         p {
             color: #000;
             font-size: 20px;
+            margin: 0 auto 25px; /* Centrado */
+            max-width: 800px;
         }
+        
         model-viewer {
             width: 100%;
             height: 70vh;
             margin: 20px auto;
+            border: 1px solid #000; /* Marco negro */
+            box-shadow: 0 0 5px rgba(0,0,0,0.1); /* Sombra suave */
         }
+        
         button[slot="ar-button"] {
             background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%);
             color: white;
@@ -43,12 +51,16 @@
             cursor: pointer;
             margin: 10px;
         }
-        .texture-buttons {
+        
+        .texture-buttons, .social-buttons {
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin: 20px 0;
+            margin: 20px auto;
+            flex-wrap: wrap;
+            max-width: 800px;
         }
+        
         .texture-btn {
             background: white;
             color: #000;
@@ -59,11 +71,45 @@
             font-size: 16px;
             transition: all 0.3s;
         }
+        
         .texture-btn.active {
             background: #000;
             color: white;
             border-color: #000;
         }
+        
+        /* Botones sociales rectangulares con colores originales */
+        .social-btn {
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 0 !important; /* Rectangulares */
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 120px;
+            text-align: center;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .social-btn.instagram { 
+            background: linear-gradient(45deg, #405DE6, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737); 
+        }
+        .social-btn.whatsapp { 
+            background: #25D366; 
+        }
+        .social-btn.catalog { 
+            background: #6e48aa; 
+        }
+        
         .logo-container {
             position: fixed;
             top: 15px;
@@ -71,20 +117,24 @@
             z-index: 1000;
             background: transparent;
         }
+        
         .logo-img {
             width: 80px;
             height: auto;
             transition: transform 0.3s ease;
             background: transparent;
         }
+        
         .logo-img:hover {
             transform: scale(1.05);
         }
+        
         .logo-container a {
             display: inline-block;
             text-decoration: none;
             border: none;
         }
+        
         .model-description {
             position: absolute;
             bottom: 20px;
@@ -101,8 +151,17 @@
             max-width: 80%;
             text-align: center;
         }
+        
         model-viewer:hover .model-description {
             opacity: 1;
+        }
+        
+        /* Texto del footer */
+        .footer {
+            font-size: 10px;
+            color: #000;
+            margin: 30px auto 10px;
+            text-align: center;
         }
     </style>
 </head>
@@ -156,6 +215,9 @@
         <button class="texture-btn" id="btn-rojo">Opción B</button>
         <button class="texture-btn" id="btn-verde">Opción C</button>
     </div>
+
+    <!-- Texto del footer -->
+    <div class="footer">Testa Chile 2025</div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
