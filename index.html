@@ -56,32 +56,32 @@
         }
         
         /* BOTONES SOCIALES (actualizado) */
-        .social-buttons, .texture-buttons {
+        .social-buttons {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin: 20px auto;
             max-width: 800px;
-            overflow-x: auto;
-            white-space: nowrap;
             padding-bottom: 10px;
-            -webkit-overflow-scrolling: touch;
         }
         
         .social-btn {
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 15px;
             border-radius: 0;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            min-width: 120px;
-            flex-shrink: 0;
+            flex: 1 1 0;
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .social-btn:hover {
@@ -99,23 +99,48 @@
             background: #6e48aa; 
         }
         
+        /* NUEVO BOTÓN AR (ESTILO MINIMALISTA) */
         .ar-button {
-            background: #FF0000 !important;
-            color: white !important;
-            border: none !important;
-            padding: 12px 24px !important;
+            background: white !important;
+            color: #000 !important;
+            border: 2px solid #000 !important;
+            padding: 10px 24px !important;
             border-radius: 0 !important;
-            font-size: 16px !important;
+            font-size: 14px !important;
+            font-family: Arial, sans-serif !important;
             margin: 10px !important;
             transition: all 0.3s !important;
             cursor: pointer !important;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .ar-button:hover {
-            background: #CC0000 !important;
+            background: #4A90E2 !important; /* Azul Deepseek */
+            color: white !important;
+            border-color: #4A90E2 !important;
+        }
+
+        .ar-hint {
+            display: block;
+            font-size: 11px;
+            margin-top: 4px;
+            color: #666;
+            font-family: Arial, sans-serif;
+            text-transform: none;
+            letter-spacing: normal;
         }
         
-        /* Botones de opción rectangulares (renombrados) */
+        /* Botones de opción rectangulares */
+        .texture-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px auto;
+            max-width: 800px;
+            flex-wrap: wrap;
+        }
+        
         .texture-btn {
             background: white;
             color: #000;
@@ -191,7 +216,14 @@
             text-align: center;
         }
 
-        @media (min-width: 480px) and (max-width: 767px) {
+        /* RESPONSIVE */
+        @media (max-width: 767px) {
+            .social-buttons {
+                overflow-x: auto;
+                justify-content: flex-start;
+                -webkit-overflow-scrolling: touch;
+            }
+            
             model-viewer {
                 height: 50vh;
             }
@@ -262,13 +294,16 @@
         interaction-prompt="none"
         xr-environment
     >
-        <button slot="ar-button" class="ar-button">Ver en AR</button>
+        <button slot="ar-button" class="ar-button">
+            VER EN REALIDAD AUMENTADA
+            <span class="ar-hint">(Coloca en una superficie plana)</span>
+        </button>
         <div class="floating-description">
             <strong>[1] Medidas: 10cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 1.
         </div>
     </model-viewer>
 
-    <!-- Botones de selección de textura (renombrados) -->
+    <!-- Botones de selección de textura -->
     <div class="texture-buttons">
         <button class="texture-btn active" id="btn-uno">Opción A</button>
         <button class="texture-btn" id="btn-dos">Opción B</button>
@@ -286,6 +321,9 @@
             // Configuración específica para iOS
             if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
                 modelViewer.arModes = 'quick-look';
+                
+                // Rotación inicial para iOS (si es vertical)
+                // modelViewer.orientation = '0 0 1 90deg';
             }
 
             // Textos descriptivos para cada modelo
@@ -295,6 +333,7 @@
                 tres: "<strong>[3] Medidas: 10cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 3."
             };
 
+            // Controladores de eventos para los botones
             document.getElementById("btn-uno").addEventListener("click", function() {
                 modelViewer.src = "GLB_Standqr01.glb";
                 description.innerHTML = descriptions.uno;
@@ -317,6 +356,14 @@
                 this.classList.add("active");
                 document.getElementById("btn-uno").classList.remove("active");
                 document.getElementById("btn-dos").classList.remove("active");
+            });
+
+            // Ajuste de orientación para modelos verticales al iniciar AR
+            modelViewer.addEventListener('ar-status', (event) => {
+                if (event.detail.status === 'session-started') {
+                    // Si necesitas rotación vertical:
+                    // modelViewer.orientation = '0 0 1 90deg';
+                }
             });
         });
     </script>
