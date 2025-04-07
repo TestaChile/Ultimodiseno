@@ -92,7 +92,7 @@
             color: white;
             padding: 10px 20px;
             border-radius: 20px;
-            font-size: 16px;
+            font-size: 12px;
             opacity: 0;
             transition: opacity 0.3s;
             pointer-events: none;
@@ -131,7 +131,7 @@
     >
         <button slot="ar-button">Ver en AR</button>
         <div class="model-description" id="model-description">
-            Opción A: Base metálica con acabado en pintura epóxica color azul.
+            (1) Medidas 10cm alto, 8cm ancho, 5cm base. Acrílico 3mm espesor. Texto logo grabado.
         </div>
     </model-viewer>
 
@@ -154,9 +154,9 @@
 
             // Textos descriptivos para cada modelo
             const descriptions = {
-                azul: "Opción A: Base metálica con acabado en pintura epóxica color azul.",
-                rojo: "Opción B: Base metálica con acabado en pintura epóxica color rojo.",
-                verde: "Opción C: Base metálica con acabado en pintura epóxica color verde."
+                azul: "(1) Medidas 10cm alto, 8cm ancho, 5cm base. Acrílico 3mm espesor. Texto logo grabado.",
+                rojo: "(2) Medidas 10cm alto, 8cm ancho, 5cm base. Acrílico 3mm espesor. Texto logo grabado.",
+                verde: "(3) Medidas 10cm alto, 8cm ancho, 5cm base. Acrílico 3mm espesor. Texto logo grabado."
             };
 
             document.getElementById("btn-azul").addEventListener("click", function() {
