@@ -19,18 +19,19 @@
             text-align: center;
         }
         
-        h1 { 
+        h1 {
             color: #000;
             margin: 0 auto 10px;
             font-size: 25px;
             max-width: 800px;
         }
         
-        p {
+        .description {
             color: #000;
             font-size: 16px;
             margin: 0 auto 25px;
             max-width: 800px;
+            line-height: 1.5;
         }
         
         /* ESTILO MEJORADO (con sombra y bordes) */
@@ -55,36 +56,8 @@
             }
         }
         
-        /* Botón AR en rojo */
-        button[slot="ar-button"] {
-            background: #FF0000;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 0;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 10px;
-            transition: all 0.3s;
-        }
-        /* Botón AR en rojo */
-        button[slot="ar-button"] {
-            background: #FF0000; /* Rojo sólido */
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 0; /* Rectangular */
-            font-size: 16px;
-            cursor: pointer;
-            margin: 10px;
-            transition: all 0.3s;
-        }
-        
-        button[slot="ar-button"]:hover {
-            background: #CC0000; /* Rojo más oscuro al hover */
-        }
-        
-        .texture-buttons, .social-buttons {
+        /* BOTONES SOCIALES */
+        .social-buttons, .texture-buttons {
             display: flex;
             justify-content: center;
             gap: 15px;
@@ -93,25 +66,6 @@
             max-width: 800px;
         }
         
-        /* Botones de opción rectangulares */
-        .texture-btn {
-            background: white;
-            color: #000;
-            border: 2px solid #000;
-            padding: 10px 20px;
-            border-radius: 0; /* Rectangular */
-            cursor: pointer;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-        
-        .texture-btn.active {
-            background: #000;
-            color: white;
-            border-color: #000;
-        }
-        
-        /* Botones sociales rectangulares */
         .social-btn {
             color: white;
             border: none;
@@ -143,6 +97,67 @@
             background: #6e48aa; 
         }
         
+        /* BOTÓN AR */
+        .ar-button {
+            background: #FF0000 !important;
+            color: white !important;
+            border: none !important;
+            padding: 12px 24px !important;
+            border-radius: 0 !important;
+            font-size: 16px !important;
+            margin: 10px !important;
+            transition: all 0.3s !important;
+            cursor: pointer !important;
+        }
+        
+        .ar-button:hover {
+            background: #CC0000 !important;
+        }
+        
+        /* Botones de opción rectangulares */
+        .texture-btn {
+            background: white;
+            color: #000;
+            border: 2px solid #000;
+            padding: 10px 20px;
+            border-radius: 0; /* Rectangular */
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .texture-btn.active {
+            background: #000;
+            color: white;
+            border-color: #000;
+        }
+        
+        /* DESCRIPCIÓN FLOTANTE MEJORADA (del primer código) */
+        .floating-description {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 12px; /* Tamaño más pequeño */
+            font-family: Arial, sans-serif; /* Fuente más legible */
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            max-width: 90%;
+            text-align: center;
+            z-index: 10;
+            line-height: 1.3;
+        }
+        
+        model-viewer:hover .floating-description {
+            opacity: 1;
+        }
+        
+        /* LOGO */
         .logo-container {
             position: fixed;
             top: 18px;
@@ -168,32 +183,39 @@
             border: none;
         }
         
-        .model-description {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 16px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-            max-width: 80%;
-            text-align: center;
-        }
-        
-        model-viewer:hover .model-description {
-            opacity: 1;
-        }
-        
         .footer {
             font-size: 10px;
             color: #000;
             margin: 30px auto 10px;
             text-align: center;
+        }
+
+        /* RESPONSIVE ADAPTADO (del primer código) */
+        @media (min-width: 480px) and (max-width: 767px) {
+            model-viewer {
+                height: 50vh;
+            }
+            
+            .floating-description {
+                font-size: 11px; /* Aún más pequeño en móviles */
+                padding: 6px 10px;
+            }
+        }
+
+        @media (max-width: 479px) {
+            model-viewer {
+                height: 45vh;
+            }
+            
+            .social-buttons, .texture-buttons {
+                gap: 10px;
+            }
+            
+            .social-btn, .texture-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+                width: 100px;
+            }
         }
     </style>
 </head>
@@ -206,9 +228,11 @@
     </div>
     
     <h1>Stand QR Pequeño | TESTA CHILE</h1>
-    <p>Explora tu modelo 3D o actívalo en Realidad Aumentada 
-    tocando <strong>'Ver en AR'</strong> (móvil) o pasando el cursor sobre él (desktop) 
-    para verlo en tu entorno real.</p>
+    <div class="description">
+        Explora tu modelo 3D o actívalo en Realidad Aumentada 
+        tocando <strong>'Ver en AR'</strong> (móvil) o pasando el cursor sobre él (desktop) 
+        para verlo en tu entorno real.
+    </div>
     
     <!-- Botones de redes sociales -->
     <div class="social-buttons">
@@ -237,9 +261,9 @@
         interaction-prompt="none"
         xr-environment
     >
-        <button slot="ar-button">Ver en AR</button>
-        <div class="model-description" id="model-description">
-            (1) Soporte acrílico de 3mm de espesor, texto y logo grabado. Tipo de texto 1
+        <button slot="ar-button" class="ar-button">Ver en AR</button>
+        <div class="floating-description">
+            <strong>Medidas: 10cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor.
         </div>
     </model-viewer>
 
@@ -256,7 +280,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const modelViewer = document.getElementById("modelo3D");
-            const description = document.getElementById("model-description");
+            const description = document.querySelector(".floating-description");
 
             // Configuración específica para iOS
             if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
@@ -265,14 +289,14 @@
 
             // Textos descriptivos para cada modelo
             const descriptions = {
-                azul: "(1) Soporte acrílico de 3mm de espesor, texto y logo grabado. Tipo de texto 1.",
-                rojo: "(2) Soporte acrílico de 3mm de espesor, texto y logo grabado. Tipo de texto 2.",
-                verde: "(3) Soporte acrílico de 3mm de espesor, texto y logo grabado. Tipo de texto 3."
+                azul: "<strong>Medidas: 10cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 1.",
+                rojo: "<strong>Medidas: 16cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 2.",
+                verde: "<strong>Medidas: 20cm de alto, 10cm de ancho, 7cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 3."
             };
 
             document.getElementById("btn-azul").addEventListener("click", function() {
                 modelViewer.src = "GLB_Standqr01.glb";
-                description.textContent = descriptions.azul;
+                description.innerHTML = descriptions.azul;
                 this.classList.add("active");
                 document.getElementById("btn-rojo").classList.remove("active");
                 document.getElementById("btn-verde").classList.remove("active");
@@ -280,7 +304,7 @@
 
             document.getElementById("btn-rojo").addEventListener("click", function() {
                 modelViewer.src = "GLB_Standqr02.glb";
-                description.textContent = descriptions.rojo;
+                description.innerHTML = descriptions.rojo;
                 this.classList.add("active");
                 document.getElementById("btn-azul").classList.remove("active");
                 document.getElementById("btn-verde").classList.remove("active");
@@ -288,7 +312,7 @@
            
             document.getElementById("btn-verde").addEventListener("click", function() {
                 modelViewer.src = "GLB_Standqr03.glb";
-                description.textContent = descriptions.verde;
+                description.innerHTML = descriptions.verde;
                 this.classList.add("active");
                 document.getElementById("btn-rojo").classList.remove("active");
                 document.getElementById("btn-azul").classList.remove("active");
