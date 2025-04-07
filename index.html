@@ -1,216 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Stand QR | TESTA CHILE</title>
+    <title>Testa Chile | Modelo 3D</title>
     <!-- Polyfill para navegadores antiguos -->
     <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.8.0/webcomponents-loader.js"></script>
     <!-- Versión fija de model-viewer -->
     <script type="module" src="https://unpkg.com/@google/model-viewer@2.1.1/dist/model-viewer.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Fuente Gaming -->
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Consolas&display=swap" rel="stylesheet">
+    <!-- Solo carga la fuente Consolas -->
     <style>
-        :root {
-            --neon-blue: #08f;
-            --neon-pink: #f0f;
-            --neon-green: #0f0;
-            --glow-text: 0 0 10px currentColor;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Consolas&display=swap');
         
         body {
+            font-family: 'Consolas', monospace; /* Cambio principal aquí */
             margin: 0;
             padding: 20px;
-            font-family: 'Consolas', monospace;
-            text-align: center;
-            background: #111;
-            color: var(--neon-green);
-            text-shadow: var(--glow-text);
+            background: #f9f9f9;
         }
         
+        /* Todo lo demás permanece IGUAL que en tu versión original */
         h1 { 
-            font-family: 'Press Start 2P', cursive;
-            color: var(--neon-blue);
-            margin-bottom: 15px;
-            font-size: 24px;
-            letter-spacing: 2px;
-            text-shadow: 0 0 15px var(--neon-blue);
+            color: #000;
+            margin-bottom: 5px;
+            font-size: 30px;
         }
-        
         p {
-            font-size: 18px;
-            margin-bottom: 25px;
-            color: var(--neon-green);
+            color: #000;
+            font-size: 20px;
         }
-        
         model-viewer {
             width: 100%;
             height: 70vh;
             margin: 20px auto;
-            position: relative;
-            border: 2px solid var(--neon-blue);
-            box-shadow: 0 0 20px var(--neon-blue);
-            border-radius: 5px;
         }
-        
         button[slot="ar-button"] {
-            background: transparent;
-            color: var(--neon-pink);
-            border: 2px solid var(--neon-pink);
+            background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%);
+            color: white;
+            border: none;
             padding: 12px 24px;
-            border-radius: 0;
-            font-family: 'Consolas', monospace;
+            border-radius: 30px;
             font-size: 16px;
             cursor: pointer;
             margin: 10px;
-            text-shadow: var(--glow-text);
-            box-shadow: 0 0 10px var(--neon-pink);
-            transition: all 0.3s;
         }
-        
-        button[slot="ar-button"]:hover {
-            background: var(--neon-pink);
-            color: #000;
-            text-shadow: none;
-        }
-        
-        .texture-buttons, .social-buttons {
+        .texture-buttons {
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin: 25px auto;
-            flex-wrap: wrap;
-            max-width: 800px;
+            margin: 20px 0;
         }
-        
-        .texture-btn, .social-btn {
-            background: transparent;
-            color: var(--neon-green);
-            border: 2px solid var(--neon-green);
+        .texture-btn {
+            background: white;
+            color: #000;
+            border: 2px solid #000;
             padding: 10px 20px;
-            border-radius: 0;
+            border-radius: 30px;
             cursor: pointer;
-            font-family: 'Consolas', monospace;
             font-size: 16px;
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            text-shadow: var(--glow-text);
-            box-shadow: 0 0 8px var(--neon-green);
         }
-        
-        .texture-btn:hover, .social-btn:hover {
-            transform: translateY(-3px);
-            color: #000;
-            background: var(--neon-green);
-            text-shadow: none;
-        }
-        
         .texture-btn.active {
-            background: var(--neon-green);
-            color: #000;
-            text-shadow: none;
-            font-weight: bold;
+            background: #000;
+            color: white;
+            border-color: #000;
         }
-        
-        /* Estilos específicos para botones sociales */
-        .social-btn {
-            min-width: 120px;
-        }
-        
-        .social-btn.instagram { 
-            color: #fff;
-            border-color: #E1306C;
-            box-shadow: 0 0 10px #E1306C;
-            text-shadow: 0 0 8px #E1306C;
-        }
-        
-        .social-btn.whatsapp { 
-            color: #25D366;
-            border-color: #25D366;
-            box-shadow: 0 0 10px #25D366;
-            text-shadow: 0 0 8px #25D366;
-        }
-        
-        .social-btn.catalog { 
-            color: #9d50bb;
-            border-color: #9d50bb;
-            box-shadow: 0 0 10px #9d50bb;
-            text-shadow: 0 0 8px #9d50bb;
-        }
-        
         .logo-container {
             position: fixed;
             top: 15px;
             left: 15px;
             z-index: 1000;
             background: transparent;
-            filter: drop-shadow(0 0 8px rgba(0, 255, 0, 0.7));
         }
-        
         .logo-img {
             width: 80px;
             height: auto;
             transition: transform 0.3s ease;
             background: transparent;
         }
-        
         .logo-img:hover {
             transform: scale(1.05);
-            filter: drop-shadow(0 0 12px rgba(0, 255, 0, 1));
         }
-        
         .logo-container a {
             display: inline-block;
             text-decoration: none;
             border: none;
         }
-        
-        /* Estilo Gaming para la descripción */
         .model-description {
             position: absolute;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            color: var(--neon-green);
-            padding: 12px 24px;
-            border-radius: 0;
-            font-family: 'Consolas', monospace;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
             font-size: 16px;
             opacity: 0;
             transition: opacity 0.3s;
             pointer-events: none;
             max-width: 80%;
             text-align: center;
-            border: 1px solid var(--neon-green);
-            box-shadow: 0 0 15px var(--neon-green);
-            text-shadow: var(--glow-text);
         }
-        
         model-viewer:hover .model-description {
             opacity: 1;
-        }
-        
-        /* Efecto de escaneo (opcional) */
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: var(--neon-green);
-            box-shadow: 0 0 10px var(--neon-green);
-            animation: scanline 6s linear infinite;
-            z-index: 1001;
-            pointer-events: none;
-        }
-        
-        @keyframes scanline {
-            0% { top: 0; }
-            100% { top: 100%; }
         }
     </style>
 </head>
@@ -222,19 +114,19 @@
         </a>
     </div>
     
-    <h1>> STAND QR [TESTA_CHILE]</h1>
-    <p>> VISUALIZACIÓN 3D / REALIDAD AUMENTADA</p>
+    <h1>Stand QR Pequeño | TESTA CHILE</h1>
+    <p>Visualiza tu pedido en 3D y en Realidad Aumentada</p>
     
     <!-- Botones de redes sociales -->
     <div class="social-buttons">
         <button class="social-btn instagram" onclick="window.open('https://www.instagram.com/testa.cl/', '_blank')">
-            [INSTAGRAM]
+            Instagram
         </button>
         <button class="social-btn catalog" onclick="window.open('https://google.cl', '_blank')">
-            [CATÁLOGO]
+            Catálogo
         </button>
         <button class="social-btn whatsapp" onclick="window.open('https://wa.me/56953706307', '_blank')">
-            [WHATSAPP]
+            WhatsApp
         </button>
     </div>
     
@@ -252,17 +144,17 @@
         interaction-prompt="none"
         xr-environment
     >
-        <button slot="ar-button">[ ACTIVAR REALIDAD AUMENTADA ]</button>
+        <button slot="ar-button">Ver en AR</button>
         <div class="model-description" id="model-description">
-            > OPCIÓN A: BASE METÁLICA | COLOR AZUL NEÓN
+            Opción A: Base metálica con acabado en pintura epóxica color azul.
         </div>
     </model-viewer>
 
     <!-- Botones de selección de textura -->
     <div class="texture-buttons">
-        <button class="texture-btn active" id="btn-azul">[OPCIÓN A]</button>
-        <button class="texture-btn" id="btn-rojo">[OPCIÓN B]</button>
-        <button class="texture-btn" id="btn-verde">[OPCIÓN C]</button>
+        <button class="texture-btn active" id="btn-azul">Opción A</button>
+        <button class="texture-btn" id="btn-rojo">Opción B</button>
+        <button class="texture-btn" id="btn-verde">Opción C</button>
     </div>
 
     <script>
@@ -275,11 +167,11 @@
                 modelViewer.arModes = 'quick-look';
             }
 
-            // Textos descriptivos estilo gaming
+            // Textos descriptivos para cada modelo
             const descriptions = {
-                azul: "> OPCIÓN A: BASE METÁLICA | COLOR AZUL NEÓN",
-                rojo: "> OPCIÓN B: BASE METÁLICA | COLOR ROJO NEÓN",
-                verde: "> OPCIÓN C: BASE METÁLICA | COLOR VERDE NEÓN"
+                azul: "Opción A: Base metálica con acabado en pintura epóxica color azul.",
+                rojo: "Opción B: Base metálica con acabado en pintura epóxica color rojo.",
+                verde: "Opción C: Base metálica con acabado en pintura epóxica color verde."
             };
 
             document.getElementById("btn-azul").addEventListener("click", function() {
