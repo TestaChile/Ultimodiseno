@@ -67,11 +67,233 @@
             margin: 10px;
             transition: all 0.3s;
         }
+        /* Botón AR en rojo */
+        button[slot="ar-button"] {
+            background: #FF0000; /* Rojo sólido */
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 0; /* Rectangular */
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
         
-        /* [Resto del CSS se mantiene igual...] */
+        button[slot="ar-button"]:hover {
+            background: #CC0000; /* Rojo más oscuro al hover */
+        }
+        
+        .texture-buttons, .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px auto;
+            flex-wrap: wrap;
+            max-width: 800px;
+        }
+        
+        /* Botones de opción rectangulares */
+        .texture-btn {
+            background: white;
+            color: #000;
+            border: 2px solid #000;
+            padding: 10px 20px;
+            border-radius: 0; /* Rectangular */
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .texture-btn.active {
+            background: #000;
+            color: white;
+            border-color: #000;
+        }
+        
+        /* Botones sociales rectangulares */
+        .social-btn {
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 0;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 120px;
+            text-align: center;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .social-btn.instagram { 
+            background: linear-gradient(45deg, #405DE6, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737); 
+        }
+        .social-btn.whatsapp { 
+            background: #25D366; 
+        }
+        .social-btn.catalog { 
+            background: #6e48aa; 
+        }
+        
+        .logo-container {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1000;
+            background: transparent;
+        }
+        
+        .logo-img {
+            width: 60px;
+            height: auto;
+            transition: transform 0.3s ease;
+            background: transparent;
+        }
+        
+        .logo-img:hover {
+            transform: scale(1.25);
+        }
+        
+        .logo-container a {
+            display: inline-block;
+            text-decoration: none;
+            border: none;
+        }
+        
+        .model-description {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 16px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            max-width: 80%;
+            text-align: center;
+        }
+        
+        model-viewer:hover .model-description {
+            opacity: 1;
+        }
+        
+        .footer {
+            font-size: 10px;
+            color: #000;
+            margin: 30px auto 10px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <!-- [Todo el HTML se mantiene igual...] -->
+    <!-- Contenedor del logo con enlace -->
+    <div class="logo-container">
+        <a href="https://www.instagram.com/testa.cl/" target="_blank">
+            <img src="WEB_LogoTestaChileBW.png" alt="Logo Testa Chile" class="logo-img">
+        </a>
+    </div>
+    
+    <h1>Stand QR Pequeño | TESTA CHILE</h1>
+    <p>Explora tu modelo 3D o actívalo en Realidad Aumentada 
+    tocando <strong>'Ver en AR'</strong> (móvil) o pasando el cursor sobre él (desktop) 
+    para verlo en tu entorno real.</p>
+    
+    <!-- Botones de redes sociales -->
+    <div class="social-buttons">
+        <button class="social-btn instagram" onclick="window.open('https://www.instagram.com/testa.cl/', '_blank')">
+            Instagram
+        </button>
+        <button class="social-btn catalog" onclick="window.open('https://google.cl', '_blank')">
+            Catálogo
+        </button>
+        <button class="social-btn whatsapp" onclick="window.open('https://wa.me/56953706307', '_blank')">
+            WhatsApp
+        </button>
+    </div>
+    
+    <model-viewer id="modelo3D"
+        src="GLB_Standqr01.glb"
+        alt="Stand QR Mediano"
+        loading="eager"
+        shadow-intensity="1"
+        auto-rotate
+        rotation-per-second="60deg"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        environment-image="neutral"
+        interaction-prompt="none"
+        xr-environment
+    >
+        <button slot="ar-button">Ver en AR</button>
+        <div class="model-description" id="model-description">
+            (1) Soporte acrílico de 3mm de espesor, texto y logo grabado. Tipo de texto 1
+        </div>
+    </model-viewer>
+
+    <!-- Botones de selección de textura (ahora rectangulares) -->
+    <div class="texture-buttons">
+        <button class="texture-btn active" id="btn-azul">Opción A</button>
+        <button class="texture-btn" id="btn-rojo">Opción B</button>
+        <button class="texture-btn" id="btn-verde">Opción C</button>
+    </div>
+
+    <!-- Texto del footer -->
+    <div class="footer">Testa Chile 2025</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const modelViewer = document.getElementById("modelo3D");
+            const description = document.getElementById("model-description");
+
+            // Configuración específica para iOS
+            if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+                modelViewer.arModes = 'quick-look';
+            }
+
+            // Textos descriptivos para cada modelo
+            const descriptions = {
+                azul: "(1) Soporte acrílico de 3mm de espesor, texto y logo grabado. Tipo de texto 1.",
+                rojo: "(2) Soporte acrílico de 3mm de espesor, texto y logo grabado. Tipo de texto 2.",
+                verde: "(3) Soporte acrílico de 3mm de espesor, texto y logo grabado. Tipo de texto 3."
+            };
+
+            document.getElementById("btn-azul").addEventListener("click", function() {
+                modelViewer.src = "GLB_Standqr01.glb";
+                description.textContent = descriptions.azul;
+                this.classList.add("active");
+                document.getElementById("btn-rojo").classList.remove("active");
+                document.getElementById("btn-verde").classList.remove("active");
+            });
+
+            document.getElementById("btn-rojo").addEventListener("click", function() {
+                modelViewer.src = "GLB_Standqr02.glb";
+                description.textContent = descriptions.rojo;
+                this.classList.add("active");
+                document.getElementById("btn-azul").classList.remove("active");
+                document.getElementById("btn-verde").classList.remove("active");
+            });
+           
+            document.getElementById("btn-verde").addEventListener("click", function() {
+                modelViewer.src = "GLB_Standqr03.glb";
+                description.textContent = descriptions.verde;
+                this.classList.add("active");
+                document.getElementById("btn-rojo").classList.remove("active");
+                document.getElementById("btn-azul").classList.remove("active");
+            });
+        });
+    </script>
 </body>
 </html>
