@@ -34,7 +34,6 @@
             line-height: 1.5;
         }
         
-        /* ESTILO MEJORADO (con sombra y bordes) */
         model-viewer {
             --mobile-width: 95%;
             --desktop-width: 65%;
@@ -56,14 +55,17 @@
             }
         }
         
-        /* BOTONES SOCIALES */
+        /* BOTONES SOCIALES (actualizado) */
         .social-buttons, .texture-buttons {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin: 20px auto;
-            flex-wrap: wrap;
             max-width: 800px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
         }
         
         .social-btn {
@@ -78,8 +80,8 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            width: 120px;
-            text-align: center;
+            min-width: 120px;
+            flex-shrink: 0;
         }
         
         .social-btn:hover {
@@ -97,7 +99,6 @@
             background: #6e48aa; 
         }
         
-        /* BOTÓN AR */
         .ar-button {
             background: #FF0000 !important;
             color: white !important;
@@ -114,16 +115,18 @@
             background: #CC0000 !important;
         }
         
-        /* Botones de opción rectangulares */
+        /* Botones de opción rectangulares (renombrados) */
         .texture-btn {
             background: white;
             color: #000;
             border: 2px solid #000;
             padding: 10px 20px;
-            border-radius: 0; /* Rectangular */
+            border-radius: 0;
             cursor: pointer;
             font-size: 16px;
             transition: all 0.3s;
+            min-width: 100px;
+            flex-shrink: 0;
         }
         
         .texture-btn.active {
@@ -132,7 +135,6 @@
             border-color: #000;
         }
         
-        /* DESCRIPCIÓN FLOTANTE MEJORADA (del primer código) */
         .floating-description {
             position: absolute;
             bottom: 25px;
@@ -142,8 +144,8 @@
             color: white;
             padding: 8px 12px;
             border-radius: 12px;
-            font-size: 12px; /* Tamaño más pequeño */
-            font-family: Arial, sans-serif; /* Fuente más legible */
+            font-size: 12px;
+            font-family: Arial, sans-serif;
             opacity: 0;
             transition: opacity 0.3s;
             pointer-events: none;
@@ -157,7 +159,6 @@
             opacity: 1;
         }
         
-        /* LOGO */
         .logo-container {
             position: fixed;
             top: 18px;
@@ -190,14 +191,13 @@
             text-align: center;
         }
 
-        /* RESPONSIVE ADAPTADO (del primer código) */
         @media (min-width: 480px) and (max-width: 767px) {
             model-viewer {
                 height: 50vh;
             }
             
             .floating-description {
-                font-size: 11px; /* Aún más pequeño en móviles */
+                font-size: 11px;
                 padding: 6px 10px;
             }
         }
@@ -214,7 +214,7 @@
             .social-btn, .texture-btn {
                 padding: 8px 15px;
                 font-size: 14px;
-                width: 100px;
+                min-width: 100px;
             }
         }
     </style>
@@ -268,11 +268,11 @@
         </div>
     </model-viewer>
 
-    <!-- Botones de selección de textura (ahora rectangulares) -->
+    <!-- Botones de selección de textura (renombrados) -->
     <div class="texture-buttons">
-        <button class="texture-btn active" id="btn-azul">Opción A</button>
-        <button class="texture-btn" id="btn-rojo">Opción B</button>
-        <button class="texture-btn" id="btn-verde">Opción C</button>
+        <button class="texture-btn active" id="btn-uno">Opción A</button>
+        <button class="texture-btn" id="btn-dos">Opción B</button>
+        <button class="texture-btn" id="btn-tres">Opción C</button>
     </div>
 
     <!-- Texto del footer -->
@@ -290,33 +290,33 @@
 
             // Textos descriptivos para cada modelo
             const descriptions = {
-                azul: "<strong>Medidas: 10cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 1.",
-                rojo: "<strong>Medidas: 16cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 2.",
-                verde: "<strong>Medidas: 20cm de alto, 10cm de ancho, 7cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 3."
+                uno: "<strong>Medidas: 10cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 1.",
+                dos: "<strong>Medidas: 16cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 2.",
+                tres: "<strong>Medidas: 20cm de alto, 10cm de ancho, 7cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 3."
             };
 
-            document.getElementById("btn-azul").addEventListener("click", function() {
+            document.getElementById("btn-uno").addEventListener("click", function() {
                 modelViewer.src = "GLB_Standqr01.glb";
-                description.innerHTML = descriptions.azul;
+                description.innerHTML = descriptions.uno;
                 this.classList.add("active");
-                document.getElementById("btn-rojo").classList.remove("active");
-                document.getElementById("btn-verde").classList.remove("active");
+                document.getElementById("btn-dos").classList.remove("active");
+                document.getElementById("btn-tres").classList.remove("active");
             });
 
-            document.getElementById("btn-rojo").addEventListener("click", function() {
+            document.getElementById("btn-dos").addEventListener("click", function() {
                 modelViewer.src = "GLB_Standqr02.glb";
-                description.innerHTML = descriptions.rojo;
+                description.innerHTML = descriptions.dos;
                 this.classList.add("active");
-                document.getElementById("btn-azul").classList.remove("active");
-                document.getElementById("btn-verde").classList.remove("active");
+                document.getElementById("btn-uno").classList.remove("active");
+                document.getElementById("btn-tres").classList.remove("active");
             });
            
-            document.getElementById("btn-verde").addEventListener("click", function() {
+            document.getElementById("btn-tres").addEventListener("click", function() {
                 modelViewer.src = "GLB_Standqr03.glb";
-                description.innerHTML = descriptions.verde;
+                description.innerHTML = descriptions.tres;
                 this.classList.add("active");
-                document.getElementById("btn-rojo").classList.remove("active");
-                document.getElementById("btn-azul").classList.remove("active");
+                document.getElementById("btn-uno").classList.remove("active");
+                document.getElementById("btn-dos").classList.remove("active");
             });
         });
     </script>
