@@ -298,65 +298,85 @@
             VER EN REALIDAD AUMENTADA
             <span class="ar-hint">(Coloca en una superficie plana)</span>
         </button>
-        <div class="floating-description">
+        <div class="floating-description" id="model-description">
             <strong>[1] Medidas: 10cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 1.
         </div>
     </model-viewer>
 
-    <!-- Botones de selección de textura -->
-    <div class="texture-buttons">
-        <button class="texture-btn active" id="btn-uno">Opción A</button>
-        <button class="texture-btn" id="btn-dos">Opción B</button>
-        <button class="texture-btn" id="btn-tres">Opción C</button>
-    </div>
+    <!-- Contenedor para los botones de opciones (se llenará dinámicamente) -->
+    <div class="texture-buttons" id="options-container"></div>
 
     <!-- Texto del footer -->
     <div class="footer">Testa Chile 2025</div>
 
     <script>
+        // CONFIGURACIÓN - Aquí defines cuántas opciones mostrar y sus detalles
+        const modelOptions = {
+            totalOptions: 3, // Cambia este valor para mostrar 1, 2 o 3 opciones
+            models: [
+                {
+                    id: 'uno',
+                    label: 'Opción A',
+                    src: 'GLB_Standqr01.glb',
+                    description: '<strong>[1] Medidas: 10cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 1.'
+                },
+                {
+                    id: 'dos',
+                    label: 'Opción B',
+                    src: 'GLB_Standqr02.glb',
+                    description: '<strong>[2] Medidas: 10cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 2.'
+                },
+                {
+                    id: 'tres',
+                    label: 'Opción C',
+                    src: 'GLB_Standqr03.glb',
+                    description: '<strong>[3] Medidas: 10cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 3.'
+                }
+            ]
+        };
+
         document.addEventListener("DOMContentLoaded", function() {
             const modelViewer = document.getElementById("modelo3D");
-            const description = document.querySelector(".floating-description");
-
+            const description = document.getElementById("model-description");
+            const optionsContainer = document.getElementById("options-container");
+            
             // Configuración específica para iOS
             if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
                 modelViewer.arModes = 'quick-look';
-                
-                // Rotación inicial para iOS (si es vertical)
-                // modelViewer.orientation = '0 0 1 90deg';
             }
 
-            // Textos descriptivos para cada modelo
-            const descriptions = {
-                uno: "<strong>[1] Medidas: 10cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 1.",
-                dos: "<strong>[2] Medidas: 10cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 2.",
-                tres: "<strong>[3] Medidas: 10cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 3."
-            };
-
-            // Controladores de eventos para los botones
-            document.getElementById("btn-uno").addEventListener("click", function() {
-                modelViewer.src = "GLB_Standqr01.glb";
-                description.innerHTML = descriptions.uno;
-                this.classList.add("active");
-                document.getElementById("btn-dos").classList.remove("active");
-                document.getElementById("btn-tres").classList.remove("active");
-            });
-
-            document.getElementById("btn-dos").addEventListener("click", function() {
-                modelViewer.src = "GLB_Standqr02.glb";
-                description.innerHTML = descriptions.dos;
-                this.classList.add("active");
-                document.getElementById("btn-uno").classList.remove("active");
-                document.getElementById("btn-tres").classList.remove("active");
-            });
-           
-            document.getElementById("btn-tres").addEventListener("click", function() {
-                modelViewer.src = "GLB_Standqr03.glb";
-                description.innerHTML = descriptions.tres;
-                this.classList.add("active");
-                document.getElementById("btn-uno").classList.remove("active");
-                document.getElementById("btn-dos").classList.remove("active");
-            });
+            // Mostrar solo las opciones configuradas
+            if (modelOptions.totalOptions > 1) {
+                for (let i = 0; i < modelOptions.totalOptions; i++) {
+                    const option = modelOptions.models[i];
+                    const button = document.createElement('button');
+                    button.className = `texture-btn ${i === 0 ? 'active' : ''}`;
+                    button.id = `btn-${option.id}`;
+                    button.textContent = option.label;
+                    
+                    button.addEventListener('click', function() {
+                        modelViewer.src = option.src;
+                        description.innerHTML = option.description;
+                        
+                        // Remover clase active de todos los botones
+                        document.querySelectorAll('.texture-btn').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        
+                        // Agregar clase active al botón clickeado
+                        this.classList.add('active');
+                    });
+                    
+                    optionsContainer.appendChild(button);
+                }
+            } else {
+                // Si solo hay 1 opción, ocultamos el contenedor de botones
+                optionsContainer.style.display = 'none';
+                
+                // Configuramos el modelo y descripción por defecto
+                modelViewer.src = modelOptions.models[0].src;
+                description.innerHTML = modelOptions.models[0].description;
+            }
 
             // Ajuste de orientación para modelos verticales al iniciar AR
             modelViewer.addEventListener('ar-status', (event) => {
