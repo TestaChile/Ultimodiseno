@@ -287,12 +287,12 @@
     </div>
     
     <model-viewer id="modelo3D"
-        src="GLB_SANTORRINO.glb"
+        src="GLB_Letrero_CREESIENTE_Modelo01.glb"
         alt="Stand QR Mediano"
         loading="eager"
         shadow-intensity="1"
         auto-rotate
-        rotation-per-second="60deg"
+        rotation-per-second="90deg"
         ar
         ar-modes="webxr scene-viewer quick-look"
         camera-controls
@@ -318,24 +318,24 @@
     <script>
         // CONFIGURACIÓN - Aquí defines cuántas opciones mostrar y sus detalles
         const modelOptions = {
-            totalOptions: 1, // Cambia este valor para mostrar 1, 2 o 3 opciones
+            totalOptions: 3, // Cambia este valor para mostrar 1, 2 o 3 opciones
             models: [
                 {
                     id: 'uno',
-                    label: 'Opción A',
-                    src: 'GLB_SANTORRINO.glb',
+                    label: 'Opción 1',
+                    src: 'GLB_Letrero_CREESIENTE_Modelo01.glb',
                     description: '<strong>Medidas: 12cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico negro plegado, 3mm de espesor. Logo, textos y código QR grabados y pintado con acrílico blanco.'
                 },
                 {
                     id: 'dos',
-                    label: 'Opción B',
-                    src: 'GLB_Standqr02.glb',
+                    label: 'Opción 2',
+                    src: 'GLB_Letrero_CREESIENTE_Modelo02.glb',
                     description: '<strong>[2] Medidas: 10cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 2.'
                 },
                 {
                     id: 'tres',
-                    label: 'Opción C',
-                    src: 'GLB_Standqr03.glb',
+                    label: 'Opción 3',
+                    src: 'GLB_Letrero_CREESIENTE_Modelo03.glb',
                     description: '<strong>[3] Medidas: 10cm de alto, 8cm de ancho, 5cm de base</strong> Soporte acrílico de 3mm de espesor. Tipo de texto 3.'
                 }
             ]
