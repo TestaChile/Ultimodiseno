@@ -393,14 +393,6 @@
                 // Configuramos el modelo y descripción por defecto
                 modelViewer.src = modelOptions.models[0].src;
                 description.innerHTML = modelOptions.models[0].description;
-            }
-
-            // Ajuste de orientación para modelos verticales al iniciar AR
-            modelViewer.addEventListener('ar-status', (event) => {
-                if (event.detail.status === 'session-started') {
-                    // Si necesitas rotación vertical:
-                    // modelViewer.orientation = '0 0 1 90deg';
-                }
             });
         });
     </script>
